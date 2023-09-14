@@ -36,4 +36,11 @@ set_gangen = {'Voor', 'Hoofd', 'Na'}
 
 ################### PARAMETERS ####################
 
+dict_tafelgenoot_vorigjaar = df_tafelgenoot_2021.to_dict('index')
+#print(dict_tafelgenoot_vorigjaar)
 
+dict_gang_vorigjaar = df_kookte_2021.to_dict('index')
+#print(dict_gang_vorigjaar)
+
+dict_buren = df_buren.to_dict('index')
+print(dict_buren)
