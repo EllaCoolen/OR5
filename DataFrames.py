@@ -17,3 +17,23 @@ df_kookte_2021 = pd.read_excel('Running Dinner dataset 2022.xlsx', skiprows=[0],
 
 df_tafelgenoot_2021 = pd.read_excel('Running Dinner dataset 2022.xlsx', skiprows=[0], sheet_name = 'Tafelgenoot vorig jaar')
 #print(df_tafelgenoot_2021)
+
+
+############# VERZAMELINGEN EN INDICES ####################
+
+set_deelnemers = set(df_bewoners['Bewoner'])
+#print(set_deelnemers)
+
+set_huisadressen = set(df_adressen['Huisadres'])
+#print(set_huisadressen)
+
+dict_koppels = df_paren.to_dict('index')
+#print(dict_koppels)
+
+set_gangen = {'Voor', 'Hoofd', 'Na'}
+#print(set_gangen)
+
+
+################### PARAMETERS ####################
+
+
