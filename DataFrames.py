@@ -1,25 +1,31 @@
 import pandas as pd
 
 def dataframes(a,b):
+    """ 
+    Inladen van de datafiles en planning (in juiste format)
+    
+    arg: a = running dinner dataset, b=eerste oplossing dataset
+    output: alle dataframes zijn ingeladen, adressm bewoners, planning etc
+    """
     df_bewoners = pd.read_excel(a, sheet_name = 'Bewoners')
     #print(df_bewoners)
 
-    df_adressen = pd.read_excel('Running Dinner dataset 2022.xlsx', sheet_name = 'Adressen')
+    df_adressen = pd.read_excel(a, sheet_name = 'Adressen')
     #print(df_adressen)
 
-    df_paren = pd.read_excel('Running Dinner dataset 2022.xlsx', skiprows=[0], sheet_name = 'Paar blijft bij elkaar')
+    df_paren = pd.read_excel(a, skiprows=[0], sheet_name = 'Paar blijft bij elkaar')
     #print(df_paren)
 
-    df_buren = pd.read_excel('Running Dinner dataset 2022.xlsx', skiprows=[0], sheet_name = 'Buren')
+    df_buren = pd.read_excel(a, skiprows=[0], sheet_name = 'Buren')
     #print(df_buren)
 
-    df_kookte_2021 = pd.read_excel('Running Dinner dataset 2022.xlsx', skiprows=[0], sheet_name = 'Kookte vorig jaar')
+    df_kookte_2021 = pd.read_excel(a, skiprows=[0], sheet_name = 'Kookte vorig jaar')
     #print(df_kookte_2021)
 
-    df_tafelgenoot_2021 = pd.read_excel('Running Dinner dataset 2022.xlsx', skiprows=[0], sheet_name = 'Tafelgenoot vorig jaar')
+    df_tafelgenoot_2021 = pd.read_excel(a, skiprows=[0], sheet_name = 'Tafelgenoot vorig jaar')
     #print(df_tafelgenoot_2021)
 
-    df_planning = pd.read_excel('Running Dinner eerste oplossing 2022.xlsx', usecols = ['Bewoner', 'Huisadres', 'Voor', 'Hoofd', 'Na', 'kookt', 'aantal'])
+    df_planning = pd.read_excel(b, usecols = ['Bewoner', 'Huisadres', 'Voor', 'Hoofd', 'Na', 'kookt', 'aantal'])
     #print(df_planning)
 
 #Running Dinner eerste oplossing 2022.xlsx'
