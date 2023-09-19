@@ -4,4 +4,5 @@ def score_planning(planning) -> int:
     arguments: planning? (2-opt heuristic is het verwisselen van twee dingen)
     output: score int (we moeten verschil tussen de scores tussen het verschil meten, maar hoeft niet)
     """
-    buren_samen = count() 
+    buren_samen = 1
+     
