@@ -2,6 +2,8 @@ import pandas as pd
 from DataFrames import dataframes
 #################### hier zal ik functies proberen (m)
 df_bewoners, df_adressen, df_paren, df_buren, df_kookte_2021, df_tafelgenoot_2021 = dataframes('Running Dinner dataset 2022.xlsx')
+# Vervang met dit jaar data
+planning = 'Running Dinner eerste oplossing 2022.xlsx'
 
 def controleer_lege_cellen(planning, kolommen):
     """
@@ -18,17 +20,7 @@ def controleer_lege_cellen(planning, kolommen):
             for index, rij in lege_cellen.iterrows():
                 lege_cel = rij[kolom]
                 print(f"Het is infeasible want cel '{kolom}' in rij {index + 2} is leeg. Inhoud: {lege_cel}")
-
-# Vervang 'jouw_excel_bestand.xlsx' door het pad naar jouw Excel-bestand
-planning = 'Running Dinner eerste oplossing 2022.xlsx'
-
-# Definieer de kolommen om te controleren op lege cellen
-kolommen_te_controleren = ['Voor', 'Hoofd', 'Na']
-
-# Roep de functie aan om de controle uit te voeren
-#print(controleer_lege_cellen(planning, kolommen_te_controleren))
-
-
+                
 
 def controleer_adressen(df_koppels, planning):
     """
@@ -62,10 +54,23 @@ def controleer_adressen(df_koppels, planning):
         if adres_a_na != adres_b_na:
             print(f"Fout: Het adres in 'Na' voor {persoon_a} verschilt van dat voor {persoon_b}.")
 
-# Vervang de bestandspaden door de paden naar jouw Excel-bestanden
+def check_niet_koken(df_bewoners, planning):
+    # Selecteer rijen waarin 'NietKoken' gelijk is aan 1 (niet hoeven te koken)
+    niet_kokers = df_bewoners[df_bewoners['NietKoken'] == 1]
+    # Loop door de rijen van niet-kokers
+    for index, rij in niet_kokers.iterrows():
+        persoon = rij['Persoon']
+        adres = rij['Adres']
 
+        # Controleer of het adres van de niet-koker voorkomt in de planning
+        if (adres in df_planning['Voor'].values) or (adres in df_planning['Hoofd'].values) or (adres in df_planning['Na'].values):
+            print(f"Fout: {persoon} hoeft niet te koken, maar zijn/haar adres staat in de planning.")
+    
+
+# Definieer de kolommen om te controleren op lege cellen
+kolommen_te_controleren = ['Voor', 'Hoofd', 'Na']
 
 # Roep de functie aan om de controle uit te voeren
+print(controleer_lege_cellen(planning, kolommen_te_controleren))
 print(controleer_adressen(df_paren, planning))
-#print(df_paren)
 
