@@ -1,11 +1,11 @@
 import pandas as pd
 
-def dataframes(a,b):
+def dataframes(a):
     """ 
     Inladen van de datafiles en planning (in juiste format)
     
     arg: a = running dinner dataset, b=eerste oplossing dataset
-    output: alle dataframes zijn ingeladen, adressm bewoners, planning etc
+    output: alle dataframes zijn ingeladen, adress bewoners, planning etc
     """
     
     df_bewoners = pd.read_excel(a, sheet_name = 'Bewoners')
@@ -26,13 +26,14 @@ def dataframes(a,b):
     df_tafelgenoot_2021 = pd.read_excel(a, skiprows=[0], sheet_name = 'Tafelgenoot vorig jaar')
     #print(df_tafelgenoot_2021)
 
-    df_planning = pd.read_excel(b, usecols = ['Bewoner', 'Huisadres', 'Voor', 'Hoofd', 'Na', 'kookt', 'aantal'])
+    
     #print(df_planning)
-    
-    
-    return df_bewoners, df_adressen, df_paren, df_buren, df_kookte_2021, df_tafelgenoot_2021, df_planning
+    return df_bewoners, df_adressen, df_paren, df_buren, df_kookte_2021, df_tafelgenoot_2021
 #Running Dinner eerste oplossing 2022.xlsx'
-   
+
+def eerste_oplossing(b):
+    df_planning = pd.read_excel(b, usecols = ['Bewoner', 'Huisadres', 'Voor', 'Hoofd', 'Na', 'kookt', 'aantal'])
+    return df_planning
 #print(dataframes('Running Dinner dataset 2022.xlsx', 'Running Dinner eerste oplossing 2022.xlsx'))
 
 ############# VERZAMELINGEN EN INDICES ####################
