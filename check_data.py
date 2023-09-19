@@ -1,19 +1,17 @@
 import pandas as pd
 from DataFrames import dataframes
-#################### hier zal ik functies proberen (m)
 df_bewoners, df_adressen, df_paren, df_buren, df_kookte_2021, df_tafelgenoot_2021 = dataframes('Running Dinner dataset 2022.xlsx')
-# Vervang met dit jaar data
 planning = 'Running Dinner eerste oplossing 2022.xlsx'
 
 def controleer_lege_cellen(planning, kolommen):
     """
-    is iedereen een locatie voor elk gerecht toegewezen
+    is iedereen een locatie voor elk gerecht toegewezen, of andere lege cellen in de planning.
     arg: planning (feasible of infeasible)
     output: niks of infeasible-melding
     """
     df = pd.read_excel(planning) #mogelijk overbodige regel
 
-    for kolom in kolommen:
+    for kolom in kolommen: 
         lege_cellen = df[df[kolom].isnull()]
 
         if not lege_cellen.empty:
@@ -22,13 +20,12 @@ def controleer_lege_cellen(planning, kolommen):
                 print(f"Het is infeasible want cel '{kolom}' in rij {index + 2} is leeg. Inhoud: {lege_cel}")
                 
 
-def controleer_adressen(df_koppels, planning):
+def controleer_koppels(df_koppels, planning):
     """
     controleert of paren altijd samen zijn.
+    arg: df_koppels en planning
+    output: hopelijk none, anders waar het mis zit
     """
-    # Laad de koppelgegevens in een DataFrame
-
-    # Laad de adresgegevens in een DataFrame
     df_adressen = pd.read_excel(planning)
 
     # Loop door de koppelgegevens en controleer adressen
@@ -55,15 +52,20 @@ def controleer_adressen(df_koppels, planning):
             print(f"Fout: Het adres in 'Na' voor {persoon_a} verschilt van dat voor {persoon_b}.")
 
 def check_niet_koken(df_bewoners, planning):
-    # Selecteer rijen waarin 'NietKoken' gelijk is aan 1 (niet hoeven te koken)
-    niet_kokers = df_bewoners[df_bewoners['NietKoken'] == 1]
+    """
+    Functie zorgt dat iedereen die niet kookt, daadwerkelijk niet kookt.
+    arg: df_bewoners, planning
+    output: hopelijk none, of de plek waar het mis gaat.
+    """
+    # Selecteer rijen waarin 'Kookt niet' gelijk is aan 1 
+    niet_kokers = df_bewoners[df_bewoners['Kookt niet'] == '1']
     # Loop door de rijen van niet-kokers
     for index, rij in niet_kokers.iterrows():
-        persoon = rij['Persoon']
-        adres = rij['Adres']
+        persoon = rij['Bewoner']
+        adres = rij['Huisadres']
 
         # Controleer of het adres van de niet-koker voorkomt in de planning
-        if (adres in df_planning['Voor'].values) or (adres in df_planning['Hoofd'].values) or (adres in df_planning['Na'].values):
+        if (adres in planning['Voor'].values) or (adres in planning['Hoofd'].values) or (adres in planning['Na'].values):
             print(f"Fout: {persoon} hoeft niet te koken, maar zijn/haar adres staat in de planning.")
     
 
@@ -72,5 +74,6 @@ kolommen_te_controleren = ['Voor', 'Hoofd', 'Na']
 
 # Roep de functie aan om de controle uit te voeren
 print(controleer_lege_cellen(planning, kolommen_te_controleren))
-print(controleer_adressen(df_paren, planning))
+print(controleer_koppels(df_paren, planning))
+print(check_niet_koken(df_bewoners, planning))
 
