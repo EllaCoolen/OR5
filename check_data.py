@@ -9,7 +9,7 @@ def controleer_lege_cellen(planning, kolommen):
     arg: planning (feasible of infeasible)
     output: niks of infeasible-melding
     """
-    df = pd.read_excel(planning) #mogelijk overbodige regel
+    df = pd.read_excel(planning) 
 
     for kolom in kolommen: 
         lege_cellen = df[df[kolom].isnull()]
@@ -50,13 +50,49 @@ def controleer_koppels(df_koppels, planning):
 
         if adres_a_na != adres_b_na:
             print(f"Fout: Het adres in 'Na' voor {persoon_a} verschilt van dat voor {persoon_b}.")
+    
+# def check_koken(df_bewoners, planning):
+#     """
+#     Functie zorgt dat iedereen die wel moet koken ook daadwerkelijk 1 keer kookt.
+#     """
+#     # Maak een dictionary om bij te houden hoe vaak elke bewoner moet koken
+#     maal_koken_dict = {}
+    
+#     # Selecteer rijen waarin 'Kookt niet' gelijk is aan 1 
+#     kokers = df_bewoners[df_bewoners['Kookt niet'] != '1']
 
-def check_niet_koken(df_bewoners, planning):
+#     # Loop door de rijen van de bewoners
+#     for index, rij in kokers.iterrows():
+#         persoon = rij['Bewoner']
+#         adres = rij['Huisadres']
+        
+#         maal_koken = 0
+        
+#         # Controleer of het adres van de koker voorkomt in de planning en hoevaak
+#         if (adres in planning['Voor'].values):
+#             maal_koken += 1
+#         if (adres in planning['Hoofd'].values):
+#             maal_koken += 1
+#         if (adres in planning['Na'].values):
+#             maal_koken += 1
+
+#         # Sla het aantal keren koken op in de dictionary
+#         maal_koken_dict[persoon] = maal_koken
+
+#     # Controleer of iedereen precies 1 keer moet koken
+#     for persoon, maal_koken in maal_koken_dict.items():
+#         if maal_koken != 1:
+#             print(f"Fout: {persoon} moet {maal_koken} keer koken")
+
+def check_niet_koken(df_bewoners, planning_filename):
     """
     Functie zorgt dat iedereen die niet kookt, daadwerkelijk niet kookt.
-    arg: df_bewoners, planning
-    output: hopelijk none, of de plek waar het mis gaat.
+    arg: df_bewoners, planning_filename (filename as a string)
+    output: hopelijk none, or the place where it goes wrong.
     """
+    # Read the planning Excel file into a DataFrame
+    planning = pd.read_excel(planning_filename)
+
     # Selecteer rijen waarin 'Kookt niet' gelijk is aan 1 
     niet_kokers = df_bewoners[df_bewoners['Kookt niet'] == '1']
     # Loop door de rijen van niet-kokers
@@ -66,8 +102,11 @@ def check_niet_koken(df_bewoners, planning):
 
         # Controleer of het adres van de niet-koker voorkomt in de planning
         if (adres in planning['Voor'].values) or (adres in planning['Hoofd'].values) or (adres in planning['Na'].values):
-            print(f"Fout: {persoon} hoeft niet te koken, maar zijn/haar adres staat in de planning.")
-    
+            print(f"Fout: {persoon} hoeft niet te koken, maar zijn/haar adres staat in de planning.")            
+            
+
+
+
 
 # Definieer de kolommen om te controleren op lege cellen
 kolommen_te_controleren = ['Voor', 'Hoofd', 'Na']
@@ -76,4 +115,5 @@ kolommen_te_controleren = ['Voor', 'Hoofd', 'Na']
 print(controleer_lege_cellen(planning, kolommen_te_controleren))
 print(controleer_koppels(df_paren, planning))
 print(check_niet_koken(df_bewoners, planning))
+print(check_koken(df_bewoners, planning))
 
