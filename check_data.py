@@ -109,6 +109,68 @@ def check_niet_koken(df_bewoners, planning_filename):
             print(f"Fout: {persoon} hoeft niet te koken, maar zijn/haar adres staat in de planning.")            
             
 # Definieer de kolommen om te controleren op lege cellen
+
+def check_meeting(planning_filename):
+    # Lees het Excel-bestand met de informatie over wie waar eet in
+    df = pd.read_excel(planning_filename)
+
+    # Maak dictionaries om de lijsten van bewoners per adres in de kolommen 'Voor', 'Hoofd', en 'Na' op te slaan
+    bewoners_per_adres_voor = {}
+    bewoners_per_adres_hoofd = {}
+    bewoners_per_adres_na = {}
+
+    # Loop door de rijen van het DataFrame
+    for index, rij in df.iterrows():
+        bewoner = rij['Bewoner']
+        adres_voor = rij['Voor']
+        adres_hoofd = rij['Hoofd']
+        adres_na = rij['Na']
+
+        # Voeg de bewoner toe aan de lijst van bewoners op hetzelfde adres in de kolom 'Voor'
+        if adres_voor not in bewoners_per_adres_voor:
+            bewoners_per_adres_voor[adres_voor] = []
+        bewoners_per_adres_voor[adres_voor].append(bewoner)
+
+        # Voeg de bewoner toe aan de lijst van bewoners op hetzelfde adres in de kolom 'Hoofd'
+        if adres_hoofd not in bewoners_per_adres_hoofd:
+            bewoners_per_adres_hoofd[adres_hoofd] = []
+        bewoners_per_adres_hoofd[adres_hoofd].append(bewoner)
+
+        # Voeg de bewoner toe aan de lijst van bewoners op hetzelfde adres in de kolom 'Na'
+        if adres_na not in bewoners_per_adres_na:
+            bewoners_per_adres_na[adres_na] = []
+        bewoners_per_adres_na[adres_na].append(bewoner)
+
+    # Maak een lege dictionary om de lijsten van bewoners per bewoner op te slaan
+    bewoners_per_bewoner = {}
+
+    # Loop door de rijen van het DataFrame om de lijsten van bewoners te genereren
+    for index, rij in df.iterrows():
+        bewoner = rij['Bewoner']
+        adres_voor = rij['Voor']
+        adres_hoofd = rij['Hoofd']
+        adres_na = rij['Na']
+
+        # Haal de lijsten van bewoners op hetzelfde adres in de kolommen 'Voor', 'Hoofd', en 'Na' op
+        bewoners_op_hetzelfde_adres_voor = bewoners_per_adres_voor.get(adres_voor, [])
+        bewoners_op_hetzelfde_adres_hoofd = bewoners_per_adres_hoofd.get(adres_hoofd, [])
+        bewoners_op_hetzelfde_adres_na = bewoners_per_adres_na.get(adres_na, [])
+
+        # Combineer de lijsten van bewoners van 'Voor', 'Hoofd', en 'Na'
+        bewoners_tijdens_voorgerecht = list(set(bewoners_op_hetzelfde_adres_voor))
+        bewoners_tijdens_hoofdgerecht = list(set(bewoners_op_hetzelfde_adres_hoofd))
+        bewoners_tijdens_nagerecht = list(set(bewoners_op_hetzelfde_adres_na))
+
+        # Voeg de lijsten samen tot één lijst voor de bewoner
+        bewoners_tijdens_alle_gangen = list(set(bewoners_tijdens_voorgerecht + bewoners_tijdens_hoofdgerecht + bewoners_tijdens_nagerecht))
+        # Sla de lijst op in de dictionary met bewoners
+        bewoners_per_bewoner[bewoner] = bewoners_tijdens_alle_gangen
+
+    # Loop door de bewoners en print de lijsten
+    for bewoner, bewoners in bewoners_per_bewoner.items():
+        print(len(bewoners_tijdens_alle_gangen))
+        print(f"Bewoner {bewoner} komt de volgende bewoners tegen bij alle 3 de gangen: {', '.join(bewoners)}")
+
 kolommen_te_controleren = ['Voor', 'Hoofd', 'Na']
 
 # Roep de functie aan om de controle uit te voeren
@@ -116,3 +178,4 @@ print(controleer_lege_cellen(planning, kolommen_te_controleren))
 print(controleer_koppels(df_paren, planning))
 print(check_niet_koken(df_bewoners, planning))
 print(check_koken(df_bewoners, planning))
+print(check_meeting(planning))
