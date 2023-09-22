@@ -180,25 +180,16 @@ def check_groepsgrootte(df_adressen, planning):
     
     # Alle dubbele adressen eruit halen en de index resetten
     df_planning = df_planning.drop_duplicates().reset_index(drop=True)
-    # print(df_planning)
     
+    # De dataframe df_adressen en df_planning samenvoegen
     df_result = pd.merge(df_adressen, df_planning, on='Huisadres', how='left')
-    print(df_result)
     
-    # adres = df_adressen['Huisadres']
-    # minimaal = df_adressen['Min groepsgrootte']
-    # maximaal = df_adressen['Max groepsgrootte']
-    
-    # for index, rij in df_planning.iterrows():
-    #     persoon = rij['Bewoner']
-    #     adres = rij['Huisadres']
-    
-    
-    
-    
+    # Per rij kijken of het aantal gasten tussen het minimum en het maximum ligt
+    for index, rij in df_result.iterrows():
+        if rij['Min groepsgrootte'] > rij['aantal'] or rij['aantal'] > rij['Max groepsgrootte']:
+            print(f'Het gaat fout in deze rij : {rij}')
 
-print(check_groepsgrootte(df_adressen, planning))
-
+    
 
 
 kolommen_te_controleren = ['Voor', 'Hoofd', 'Na']
@@ -209,3 +200,4 @@ print(controleer_koppels(df_paren, planning))
 print(check_niet_koken(df_bewoners, planning))
 print(check_koken(df_bewoners, planning))
 print(check_meeting(planning))
+print(check_groepsgrootte(df_adressen, planning))
