@@ -171,6 +171,36 @@ def check_meeting(planning_filename):
         print(len(bewoners_tijdens_alle_gangen))
         print(f"Bewoner {bewoner} komt de volgende bewoners tegen bij alle 3 de gangen: {', '.join(bewoners)}")
 
+
+
+def check_groepsgrootte(df_adressen, planning):
+    
+    # Excel file met de planning inlezen met de juiste kolommen
+    df_planning = pd.read_excel(planning, usecols= ['Huisadres', 'aantal'])
+    
+    # Alle dubbele adressen eruit halen en de index resetten
+    df_planning = df_planning.drop_duplicates().reset_index(drop=True)
+    # print(df_planning)
+    
+    df_result = pd.merge(df_adressen, df_planning, on='Huisadres', how='left')
+    print(df_result)
+    
+    # adres = df_adressen['Huisadres']
+    # minimaal = df_adressen['Min groepsgrootte']
+    # maximaal = df_adressen['Max groepsgrootte']
+    
+    # for index, rij in df_planning.iterrows():
+    #     persoon = rij['Bewoner']
+    #     adres = rij['Huisadres']
+    
+    
+    
+    
+
+print(check_groepsgrootte(df_adressen, planning))
+
+
+
 kolommen_te_controleren = ['Voor', 'Hoofd', 'Na']
 
 # Roep de functie aan om de controle uit te voeren
