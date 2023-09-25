@@ -5,4 +5,11 @@ def score_planning(planning) -> int:
     output: score int (we moeten verschil tussen de scores tussen het verschil meten, maar hoeft niet)
     """
     buren_samen = 1
+    
+    a = 1
+    b = 2
+    c = 3
+    d = 4
+    
+    som = a*
      

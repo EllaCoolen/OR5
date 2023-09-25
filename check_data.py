@@ -1,5 +1,6 @@
 import pandas as pd
 from DataFrames import dataframes
+from collections import Counter
 df_bewoners, df_adressen, df_paren, df_buren, df_kookte_2021, df_tafelgenoot_2021 = dataframes('Running Dinner dataset 2022.xlsx')
 planning = 'Running Dinner eerste oplossing 2022.xlsx'
 
@@ -113,6 +114,9 @@ def check_niet_koken(df_bewoners, planning_filename):
 def check_meeting(planning_filename):
     # Lees het Excel-bestand met de informatie over wie waar eet in
     df = pd.read_excel(planning_filename)
+    
+    dubbel = 0
+    trippel = 0
 
     # Maak dictionaries om de lijsten van bewoners per adres in de kolommen 'Voor', 'Hoofd', en 'Na' op te slaan
     bewoners_per_adres_voor = {}
@@ -157,19 +161,28 @@ def check_meeting(planning_filename):
         bewoners_op_hetzelfde_adres_na = bewoners_per_adres_na.get(adres_na, [])
 
         # Combineer de lijsten van bewoners van 'Voor', 'Hoofd', en 'Na'
-        bewoners_tijdens_voorgerecht = list(set(bewoners_op_hetzelfde_adres_voor))
-        bewoners_tijdens_hoofdgerecht = list(set(bewoners_op_hetzelfde_adres_hoofd))
-        bewoners_tijdens_nagerecht = list(set(bewoners_op_hetzelfde_adres_na))
+        bewoners_tijdens_voorgerecht = list(bewoners_op_hetzelfde_adres_voor)
+        bewoners_tijdens_hoofdgerecht = list(bewoners_op_hetzelfde_adres_hoofd)
+        bewoners_tijdens_nagerecht = list(bewoners_op_hetzelfde_adres_na)
 
         # Voeg de lijsten samen tot één lijst voor de bewoner
-        bewoners_tijdens_alle_gangen = list(set(bewoners_tijdens_voorgerecht + bewoners_tijdens_hoofdgerecht + bewoners_tijdens_nagerecht))
+        bewoners_tijdens_alle_gangen = list(bewoners_tijdens_voorgerecht + bewoners_tijdens_hoofdgerecht + bewoners_tijdens_nagerecht)
         # Sla de lijst op in de dictionary met bewoners
         bewoners_per_bewoner[bewoner] = bewoners_tijdens_alle_gangen
 
     # Loop door de bewoners en print de lijsten
     for bewoner, bewoners in bewoners_per_bewoner.items():
-        print(len(bewoners_tijdens_alle_gangen))
-        print(f"Bewoner {bewoner} komt de volgende bewoners tegen bij alle 3 de gangen: {', '.join(bewoners)}")
+        tafelgenoten = bewoners_per_bewoner[bewoner] 
+        tafelgenoten = [i for i in tafelgenoten if i != bewoner]   # Bewoner zelf uit eigen tafelgenoten lijst verwijderd
+        print(len(tafelgenoten))
+        print(f"Bewoner {bewoner} komt de volgende bewoners tegen bij alle 3 de gangen: {', '.join(tafelgenoten)}")
+        
+        dubbel = [bewoners for bewoners in tafelgenoten if tafelgenoten.count(bewoners) == 2] 
+        print(dubbel)
+        
+        
+    #return dubbel, trippel
+        
 
 
 
@@ -191,13 +204,16 @@ def check_groepsgrootte(df_adressen, planning):
 
     
 
+# def simulated_annealing(planning, points, x, y):
+    
+
 
 kolommen_te_controleren = ['Voor', 'Hoofd', 'Na']
 
 # Roep de functie aan om de controle uit te voeren
-print(controleer_lege_cellen(planning, kolommen_te_controleren))
-print(controleer_koppels(df_paren, planning))
-print(check_niet_koken(df_bewoners, planning))
-print(check_koken(df_bewoners, planning))
+# print(controleer_lege_cellen(planning, kolommen_te_controleren))
+# print(controleer_koppels(df_paren, planning))
+# print(check_niet_koken(df_bewoners, planning))
+# print(check_koken(df_bewoners, planning))
 print(check_meeting(planning))
-print(check_groepsgrootte(df_adressen, planning))
+# print(check_groepsgrootte(df_adressen, planning))
