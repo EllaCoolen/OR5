@@ -174,14 +174,25 @@ def check_meeting(planning_filename):
     for bewoner, bewoners in bewoners_per_bewoner.items():
         tafelgenoten = bewoners_per_bewoner[bewoner] 
         tafelgenoten = [i for i in tafelgenoten if i != bewoner]   # Bewoner zelf uit eigen tafelgenoten lijst verwijderd
-        print(len(tafelgenoten))
-        print(f"Bewoner {bewoner} komt de volgende bewoners tegen bij alle 3 de gangen: {', '.join(tafelgenoten)}")
         
-        dubbel = [bewoners for bewoners in tafelgenoten if tafelgenoten.count(bewoners) == 2] 
-        print(dubbel)
+        for index, rij in df_paren.iterrows():
+            bewoner1 = rij['Bewoner1']
+            bewoner2 = rij['Bewoner2']
+            
+            if bewoner == bewoner1 and bewoner2 in tafelgenoten:
+                tafelgenoten.remove(bewoner2)
+            elif bewoner == bewoner2 and bewoner1 in tafelgenoten:
+                tafelgenoten.remove(bewoner1)
+        # print(len(tafelgenoten))
+        # print(f"Bewoner {bewoner} komt de volgende bewoners tegen bij alle 3 de gangen: {', '.join(tafelgenoten)}")
         
+        dubbel += len([bewoners for bewoners in tafelgenoten if tafelgenoten.count(bewoners) == 2])/2
+        trippel += len([bewoners for bewoners in tafelgenoten if tafelgenoten.count(bewoners) == 3])/3
         
-    #return dubbel, trippel
+    dubbel = dubbel/2
+    trippel = trippel/2 
+        
+    return dubbel, trippel
         
 
 
@@ -215,5 +226,5 @@ kolommen_te_controleren = ['Voor', 'Hoofd', 'Na']
 # print(controleer_koppels(df_paren, planning))
 # print(check_niet_koken(df_bewoners, planning))
 # print(check_koken(df_bewoners, planning))
-print(check_meeting(planning))
+# print(check_meeting(planning))
 # print(check_groepsgrootte(df_adressen, planning))
