@@ -32,30 +32,33 @@ logging.getLogger('matplotlib.font_manager').disabled = True
 
 
 def two_opt(planning):
-    strafpunten = score_planning(planning)
     planning = pd.read_excel(planning)
+    strafpunten = score_planning(planning)
+    
     oude_planning = planning
     # planning_strafpunten = score_planning()
     logger.debug(msg=f"2-opt starts with tour having total distance: {strafpunten}")
 
-
+    Voor = planning['Voor']       # Lijst maken werkt niet, dit moet in functie score_planning
+    Hoofd = planning['Hoofd']
+    Na = planning['Na']
     improved = True
     iteration = 0
     while improved:
         improved = False
         i = 1
-        while ((i <= len(planning)-2) and not(improved)):
+        while ((i <= len(Voor)-2) and not(improved)):
             j = i+1
-            while((j <= len(planning)) and not(improved)): 
+            while((j <= len(Voor)) and not(improved)): 
                 if j - i == 1:
                     j += 1
                     continue  # No need to reverse two consecutive edges
 
-                nieuwe_planning = planning[:]
-                nieuwe_planning[i:j] = reversed(planning[i:j])
-                if score_planning(nieuwe_planning) < score_planning(planning):
-                    planning = nieuwe_planning
-                    current_distance = score_planning(planning)
+                nieuwe_planning = Voor[:]
+                nieuwe_planning.iloc[i:j] = reversed(Voor.iloc[i:j])          # reversed werkt niet voor series, iloc nodig voor series
+                if score_planning(nieuwe_planning) < score_planning(Voor):
+                    Voor = nieuwe_planning
+                    current_distance = score_planning(Voor)
                     improved = True
                     logger.debug(msg=f"Iteration {iteration+1:3n}, distance (curr): {current_distance:.2f}")
                     iteration += 1

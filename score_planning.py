@@ -17,4 +17,4 @@ def score_planning(planning) -> int:
     strafpunten = buren_dubbel * dubbel + buren_trippel * trippel
     return strafpunten
      
-print(score_planning(planning))
+# print(score_planning(planning))

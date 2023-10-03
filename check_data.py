@@ -113,8 +113,8 @@ def check_niet_koken(df_bewoners, planning_filename):
 
 def check_meeting(planning_filename):
     # Lees het Excel-bestand met de informatie over wie waar eet in
-    df = pd.read_excel(planning_filename)
-    
+    # df = pd.read_excel(planning_filename)
+    df = planning_filename
     dubbel = 0
     trippel = 0
 
