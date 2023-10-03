@@ -5,7 +5,7 @@ import random
 import pandas as pd
 
 df_bewoners, df_adressen, df_paren, df_buren, df_kookte_2021, df_tafelgenoot_2021 = dataframes('Running Dinner dataset 2022.xlsx')
-planning = 'Running Dinner eerste oplossing 2022.xlsx'
+planning = 'Running Dinner eerste oplossing 2023 v2.xlsx'
 
 # Constants
 MYVERYBIGNUMBER = 424242424242 

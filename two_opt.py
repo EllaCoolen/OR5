@@ -4,8 +4,8 @@ from DataFrames import dataframes
 import random
 import pandas as pd
 
-df_bewoners, df_adressen, df_paren, df_buren, df_kookte_2021, df_tafelgenoot_2021 = dataframes('Running Dinner dataset 2022.xlsx')
-planning = 'Running Dinner eerste oplossing 2022.xlsx'
+df_bewoners, df_adressen, df_paren, df_buren, df_kookte_2021, df_tafelgenoot_2021 = dataframes('Running Dinner dataset 2023 v2.xlsx')
+planning = 'Running Dinner eerste oplossing 2023 v2.xlsx'
 
 
 # Constants
@@ -33,6 +33,7 @@ logging.getLogger('matplotlib.font_manager').disabled = True
 
 def two_opt(planning):
     strafpunten = score_planning(planning)
+    planning = pd.read_excel(planning)
     oude_planning = planning
     # planning_strafpunten = score_planning()
     logger.debug(msg=f"2-opt starts with tour having total distance: {strafpunten}")

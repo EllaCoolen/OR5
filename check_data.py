@@ -1,8 +1,8 @@
 import pandas as pd
 from DataFrames import dataframes
 from collections import Counter
-df_bewoners, df_adressen, df_paren, df_buren, df_kookte_2021, df_tafelgenoot_2021 = dataframes('Running Dinner dataset 2022.xlsx')
-planning = 'Running Dinner eerste oplossing 2022.xlsx'
+df_bewoners, df_adressen, df_paren, df_buren, df_kookte_2021, df_tafelgenoot_2021 = dataframes('Running Dinner dataset 2023 v2.xlsx')
+planning = 'Running Dinner eerste oplossing 2023 v2.xlsx'
 
 def controleer_lege_cellen(planning, kolommen):
     """
@@ -86,7 +86,7 @@ def check_koken(df_bewoners, planning):
     # Controleer of de kokers precies 1 keer moeten koken
     for persoon, maal_koken in maal_koken_dict.items():
         if maal_koken != 1:
-            print(f"Fout: {persoon} moet {maal_koken} keer koken, maar moet precies 1 keer koken.")
+            return print(f"Fout: {persoon} moet {maal_koken} keer koken, maar moet precies 1 keer koken.")
 
 
 def check_niet_koken(df_bewoners, planning_filename):
@@ -225,6 +225,6 @@ kolommen_te_controleren = ['Voor', 'Hoofd', 'Na']
 # print(controleer_lege_cellen(planning, kolommen_te_controleren))
 # print(controleer_koppels(df_paren, planning))
 # print(check_niet_koken(df_bewoners, planning))
-# print(check_koken(df_bewoners, planning))
+print(check_koken(df_bewoners, planning))
 # print(check_meeting(planning))
 # print(check_groepsgrootte(df_adressen, planning))
