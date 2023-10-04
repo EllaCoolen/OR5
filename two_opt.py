@@ -3,6 +3,8 @@ from check_data import controleer_koppels
 from DataFrames import dataframes
 import random
 import pandas as pd
+from check_data import *
+from alle_checks import alle_eisen
 
 df_bewoners, df_adressen, df_paren, df_buren, df_kookte_2021, df_tafelgenoot_2021 = dataframes('Running Dinner dataset 2023 v2.xlsx')
 planning = 'Running Dinner eerste oplossing 2023 v2.xlsx'
@@ -51,35 +53,18 @@ def two_opt(planning, kolom):
                 if j - i == 1:
                     j += 1
                     continue  # No need to reverse two consecutive edges
-
-                nieuwe_planning = planning.copy()
-                nieuwe_planning.loc[i, kolom], nieuwe_planning.loc[j, kolom] = nieuwe_planning.loc[j, kolom], nieuwe_planning.loc[i, kolom]
-                new_score = score_planning(nieuwe_planning)
-                if new_score < score_planning(planning):
-                    planning = nieuwe_planning
-                    improved = True
-                    logger.debug(msg=f"Iteration {iteration + 1:3n}, score (curr): {new_score:.2f}")
-                    iteration += 1
+                if alle_eisen(planning) == 0:
+                    nieuwe_planning = planning.copy()
+                    nieuwe_planning.loc[i, kolom], nieuwe_planning.loc[j, kolom] = nieuwe_planning.loc[j, kolom], nieuwe_planning.loc[i, kolom]
+                    new_score = score_planning(nieuwe_planning)
+                    if new_score < score_planning(planning):
+                        planning = nieuwe_planning
+                        improved = True
+                        logger.debug(msg=f"Iteration {iteration + 1:3n}, score (curr): {new_score:.2f}")
+                        iteration += 1
                 j += 1
             i += 1
 
-
-
-    # for i in range(1, len(strafpunten)):
-    #     x1, y1 = strafpunten[oude_planning[i - 1]]
-    #     x2, y2 = strafpunten[oude_planning[i]]
-    #     plt.plot([x1, x2], [y1, y2], 'g-',linewidth=1)  
-    # x1, y1 = strafpunten[oude_planning[len(strafpunten)-1]]
-    # x2, y2 = strafpunten[oude_planning[0]]
-    # plt.plot([x1, x2], [y1, y2], 'g-',linewidth=1)  
-    # for i in range(1, len(strafpunten)):
-    #     x1, y1 = strafpunten[planning[i - 1]]
-    #     x2, y2 = strafpunten[planning[i]]
-    #     plt.plot([x1, x2], [y1, y2], 'b-')  # 'b-' specifies blue solid line
-    # x1, y1 = strafpunten[planning[len(strafpunten)-1]]
-    # x2, y2 = strafpunten[planning[0]]
-    # plt.plot([x1, x2], [y1, y2], 'b-')  # 'b-' specifies blue solid line
-    # plt.title(f'Tours after applying 2-opt')
 
     logger.debug(msg=f"2-opt ends with tour having total distance: {strafpunten}")
 

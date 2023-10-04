@@ -4,21 +4,23 @@ from collections import Counter
 df_bewoners, df_adressen, df_paren, df_buren, df_kookte_2021, df_tafelgenoot_2021 = dataframes('Running Dinner dataset 2023 v2.xlsx')
 planning = 'Running Dinner eerste oplossing 2023 v2.xlsx'
 
-def controleer_lege_cellen(planning, kolommen):
+def controleer_lege_cellen(df):
     """
     is iedereen een locatie voor elk gerecht toegewezen, of andere lege cellen in de planning.
     arg: planning (feasible of infeasible)
     output: niks of infeasible-melding
-    """
-    df = pd.read_excel(planning) 
-
+    """ 
+    kolommen = ['Voor', 'Hoofd', 'Na']
     for kolom in kolommen: 
         lege_cellen = df[df[kolom].isnull()]
 
         if not lege_cellen.empty:
             for index, rij in lege_cellen.iterrows():
                 lege_cel = rij[kolom]
-                print(f"Het is infeasible want cel '{kolom}' in rij {index + 2} is leeg. Inhoud: {lege_cel}")
+            return 1
+        else:
+            return 0
+                # print(f"Het is infeasible want cel '{kolom}' in rij {index + 2} is leeg. Inhoud: {lege_cel}")
                 
 
 def controleer_koppels(df_koppels, planning):
@@ -27,37 +29,43 @@ def controleer_koppels(df_koppels, planning):
     arg: df_koppels en planning
     output: hopelijk none, anders waar het mis zit
     """
-    df_adressen = pd.read_excel(planning)
+    
 
     # Loop door de koppelgegevens en controleer adressen
     for index, rij in df_koppels.iterrows():
         persoon_a = rij['Bewoner1']
         persoon_b = rij['Bewoner2']
 
-        adres_a_voor = df_adressen.loc[df_adressen['Bewoner'] == persoon_a, 'Voor'].values[0]
-        adres_b_voor = df_adressen.loc[df_adressen['Bewoner'] == persoon_b, 'Voor'].values[0]
+        adres_a_voor = planning.loc[planning['Bewoner'] == persoon_a, 'Voor'].values[0]
+        adres_b_voor = planning.loc[planning['Bewoner'] == persoon_b, 'Voor'].values[0]
 
-        adres_a_hoofd = df_adressen.loc[df_adressen['Bewoner'] == persoon_a, 'Hoofd'].values[0]
-        adres_b_hoofd = df_adressen.loc[df_adressen['Bewoner'] == persoon_b, 'Hoofd'].values[0]
+        adres_a_hoofd = planning.loc[planning['Bewoner'] == persoon_a, 'Hoofd'].values[0]
+        adres_b_hoofd = planning.loc[planning['Bewoner'] == persoon_b, 'Hoofd'].values[0]
 
-        adres_a_na = df_adressen.loc[df_adressen['Bewoner'] == persoon_a, 'Na'].values[0]        
-        adres_b_na = df_adressen.loc[df_adressen['Bewoner'] == persoon_b, 'Na'].values[0]
+        adres_a_na = planning.loc[planning['Bewoner'] == persoon_a, 'Na'].values[0]        
+        adres_b_na = planning.loc[planning['Bewoner'] == persoon_b, 'Na'].values[0]
 
         if adres_a_voor != adres_b_voor:
-            print(f"Fout: Het adres in 'Voor' voor {persoon_a} verschilt van dat voor {persoon_b}.")
+            return 1
+            # print(f"Fout: Het adres in 'Voor' voor {persoon_a} verschilt van dat voor {persoon_b}.")
         
-        if adres_a_hoofd != adres_b_hoofd:
-            print(f"Fout: Het adres in 'Hoofd' voor {persoon_a} verschilt van dat voor {persoon_b}.")
+        elif adres_a_hoofd != adres_b_hoofd:
+            return 1
+            # print(f"Fout: Het adres in 'Hoofd' voor {persoon_a} verschilt van dat voor {persoon_b}.")
 
-        if adres_a_na != adres_b_na:
-            print(f"Fout: Het adres in 'Na' voor {persoon_a} verschilt van dat voor {persoon_b}.")
+        elif adres_a_na != adres_b_na:
+            return 1
+            # print(f"Fout: Het adres in 'Na' voor {persoon_a} verschilt van dat voor {persoon_b}.")
+            
+        else:
+            return 0
 
-def check_koken(df_bewoners, planning):
+def check_koken(df_bewoners, planning_df):
     """
     Functie zorgt dat niet-kokers precies 0 keer koken en de rest precies 1 keer kookt.
     """
     # Read the planning Excel file into a DataFrame
-    planning_df = pd.read_excel(planning)
+    
 
     # Selecteer alleen de rijen waarin 'Kookt niet' gelijk is aan 0 (kokers)
     kokers = df_bewoners[df_bewoners['Kookt niet'] != 1]
@@ -86,17 +94,19 @@ def check_koken(df_bewoners, planning):
     # Controleer of de kokers precies 1 keer moeten koken
     for persoon, maal_koken in maal_koken_dict.items():
         if maal_koken != 1:
-            return print(f"Fout: {persoon} moet {maal_koken} keer koken, maar moet precies 1 keer koken.")
+            return 1
+        else:
+            return 0
 
 
-def check_niet_koken(df_bewoners, planning_filename):
+def check_niet_koken(df_bewoners, planning):
     """
     Functie zorgt dat iedereen die niet kookt, daadwerkelijk niet kookt.
     arg: df_bewoners, planning_filename (filename as a string)
     output: hopelijk none, or the place where it goes wrong.
     """
     # Read the planning Excel file into a DataFrame
-    planning = pd.read_excel(planning_filename)
+    
 
     # Selecteer rijen waarin 'Kookt niet' gelijk is aan 1 
     niet_kokers = df_bewoners[df_bewoners['Kookt niet'] == 1]
@@ -107,9 +117,40 @@ def check_niet_koken(df_bewoners, planning_filename):
 
         # Controleer of het adres van de niet-koker voorkomt in de planning
         if (adres in planning['Voor'].values) or (adres in planning['Hoofd'].values) or (adres in planning['Na'].values):
-            print(f"Fout: {persoon} hoeft niet te koken, maar zijn/haar adres staat in de planning.")            
+            return 1
+        else:
+            return 0            
             
 # Definieer de kolommen om te controleren op lege cellen
+
+
+def check_groepsgrootte(df_adressen, planning):
+    for index, rij in df_adressen.iterrows():
+        adres = rij['Huisadres']
+        if planning.loc[planning['Huisadres'] == adres, 'aantal'].empty:
+            planning.loc[planning['Huisadres'] == adres, 'aantal'] = 0
+        
+        aantal = planning.loc[planning['Huisadres'] == adres, 'aantal'].values[0]
+        
+        min_aantal = rij['Min groepsgrootte']
+        max_aantal = rij['Max groepsgrootte']
+        
+        if aantal < min_aantal or aantal > max_aantal:
+            return 1
+        else:
+            return 0
+
+    
+
+
+
+
+
+############# WENSEN ###################################################
+
+
+
+
 
 def check_meeting(planning_filename):
     # Lees het Excel-bestand met de informatie over wie waar eet in
@@ -197,34 +238,6 @@ def check_meeting(planning_filename):
 
 
 
-def check_groepsgrootte(df_adressen, planning):
-    
-    # Excel file met de planning inlezen met de juiste kolommen
-    df_planning = pd.read_excel(planning, usecols= ['Huisadres', 'aantal'])
-    
-    # Alle dubbele adressen eruit halen en de index resetten
-    df_planning = df_planning.drop_duplicates().reset_index(drop=True)
-    
-    # De dataframe df_adressen en df_planning samenvoegen
-    df_result = pd.merge(df_adressen, df_planning, on='Huisadres', how='left')
-    
-    # Per rij kijken of het aantal gasten tussen het minimum en het maximum ligt
-    for index, rij in df_result.iterrows():
-        if rij['Min groepsgrootte'] > rij['aantal'] or rij['aantal'] > rij['Max groepsgrootte']:
-            print(f'Het gaat fout in deze rij : {rij}')
-
-    
-
-# def simulated_annealing(planning, points, x, y):
-    
 
 
-kolommen_te_controleren = ['Voor', 'Hoofd', 'Na']
-
-# Roep de functie aan om de controle uit te voeren
-# print(controleer_lege_cellen(planning, kolommen_te_controleren))
-# print(controleer_koppels(df_paren, planning))
-# print(check_niet_koken(df_bewoners, planning))
-# print(check_koken(df_bewoners, planning))
-# print(check_meeting(planning))
-# print(check_groepsgrootte(df_adressen, planning))
+    
