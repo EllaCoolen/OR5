@@ -1,4 +1,4 @@
-from wensen import check_meeting
+from wensen import *
 
 #functie om de score steeds te bepalen voor elke planning (di e voldoet aan de eisen), gebaseerd op de wensen.
 def score_planning(planning) -> int:
@@ -10,7 +10,9 @@ def score_planning(planning) -> int:
     buren_trippel = 28
     dubbel, trippel = check_meeting(planning)
     
+    hoofd_dubbel = dubbel_hoofd(planning, 'Running Dinner eerste oplossing 2022.xlsx')    # Moet nog veranderen hoe excel word ingelezen
+    dubbel_hoofdgerecht = 8
     
-    strafpunten = buren_dubbel * dubbel + buren_trippel * trippel
+    strafpunten = buren_dubbel * dubbel + buren_trippel * trippel + hoofd_dubbel * dubbel_hoofdgerecht
     return strafpunten
      

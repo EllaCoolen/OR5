@@ -1,5 +1,7 @@
 from DataFrames import dataframes
+import pandas as pd
 
+planning = pd.read_excel('Running Dinner eerste oplossing 2023 v2.xlsx')
 
 
 def check_meeting(df):
@@ -86,14 +88,32 @@ def check_meeting(df):
 
 
 
-def dubbel_hoofd(planning):
+def dubbel_hoofd(planning, voorgaand_jaar):
     """
     Functie kijkt of bewoners van vorig jaar, dit jaar weer hoofdgerecht koken.
     8 strafpunten
     """    
+    voorgaand_jaar = pd.read_excel(voorgaand_jaar)
+    planning['Huisadres'] = planning['Huisadres'].str.replace('_', '')
+    voorgaand_jaar['Huisadres'] = voorgaand_jaar['Huisadres'].str.replace('_', '')  # Maakt het generiek
     
-    
-    return
+    hoofd_dubbel = []
+
+    vorig_jaar_hoofd = voorgaand_jaar[voorgaand_jaar['kookt'] == 'Hoofd']['Huisadres'].values.tolist()
+
+    for index, rij in planning.iterrows():
+        koken_dit_jaar = rij['kookt']
+        huisadres = rij['Huisadres']
+        
+        # Zoek het huisadres in de voorgaand_jaar DataFrame
+        vorig_jaar_rij = voorgaand_jaar[voorgaand_jaar['Huisadres'] == huisadres]
+        
+        if not vorig_jaar_rij.empty:            
+            if koken_dit_jaar == 'Hoofd' and huisadres in vorig_jaar_hoofd:
+                hoofd_dubbel.append(huisadres)
+           
+    hoofd_dubbel = len(list(dict.fromkeys(hoofd_dubbel)))
+    return hoofd_dubbel
 
 
 
