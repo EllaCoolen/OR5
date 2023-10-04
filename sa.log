@@ -24,3 +24,112 @@
 [2023-10-03 10:27:48,034] 2-opt starts with tour having total distance: 1208.0
 [2023-10-03 10:33:05,595] 2-opt starts with tour having total distance: 1208.0
 [2023-10-03 10:35:35,762] 2-opt starts with tour having total distance: 1208.0
+[2023-10-04 09:51:02,355] 2-opt starts with tour having total distance: 1208.0
+[2023-10-04 09:51:51,712] 2-opt begint met een strafpunten score van: 1208.0
+[2023-10-04 09:52:04,195] 2-opt begint met een strafpunten score van: 1208.0
+[2023-10-04 12:57:57,845] 2-opt begint met een strafpunten score van: 1208.0
+[2023-10-04 12:58:27,269] 2-opt begint met een strafpunten score van: 1208.0
+[2023-10-04 12:58:27,353] Iteration   1, score (curr): 1184.00
+[2023-10-04 12:58:27,576] Iteration   2, score (curr): 1172.00
+[2023-10-04 12:58:27,879] Iteration   3, score (curr): 1160.00
+[2023-10-04 12:58:28,036] Iteration   4, score (curr): 1148.00
+[2023-10-04 12:58:28,486] Iteration   5, score (curr): 1100.00
+[2023-10-04 12:58:29,727] Iteration   6, score (curr): 1088.00
+[2023-10-04 12:58:31,078] Iteration   7, score (curr): 1076.00
+[2023-10-04 12:58:31,594] Iteration   8, score (curr): 1064.00
+[2023-10-04 12:58:33,165] Iteration   9, score (curr): 1052.00
+[2023-10-04 12:58:33,258] Iteration  10, score (curr): 1040.00
+[2023-10-04 12:58:33,810] Iteration  11, score (curr): 1036.00
+[2023-10-04 12:58:33,960] Iteration  12, score (curr): 1024.00
+[2023-10-04 12:58:34,178] Iteration  13, score (curr): 1012.00
+[2023-10-04 12:58:36,034] Iteration  14, score (curr): 996.00
+[2023-10-04 12:58:37,857] Iteration  15, score (curr): 984.00
+[2023-10-04 12:58:39,059] Iteration  16, score (curr): 972.00
+[2023-10-04 12:58:41,072] Iteration  17, score (curr): 960.00
+[2023-10-04 12:58:44,187] Iteration  18, score (curr): 936.00
+[2023-10-04 12:58:46,436] Iteration  19, score (curr): 924.00
+[2023-10-04 12:58:48,327] Iteration  20, score (curr): 912.00
+[2023-10-04 12:58:51,268] Iteration  21, score (curr): 908.00
+[2023-10-04 12:58:51,493] Iteration  22, score (curr): 896.00
+[2023-10-04 12:58:52,019] Iteration  23, score (curr): 884.00
+[2023-10-04 12:58:54,484] Iteration  24, score (curr): 872.00
+[2023-10-04 12:58:55,491] Iteration  25, score (curr): 860.00
+[2023-10-04 12:58:58,589] Iteration  26, score (curr): 840.00
+[2023-10-04 12:59:02,416] Iteration  27, score (curr): 828.00
+[2023-10-04 12:59:03,137] Iteration  28, score (curr): 816.00
+[2023-10-04 12:59:07,287] Iteration  29, score (curr): 788.00
+[2023-10-04 12:59:10,567] Iteration  30, score (curr): 776.00
+[2023-10-04 12:59:16,042] Iteration  31, score (curr): 764.00
+[2023-10-04 12:59:22,004] Iteration  32, score (curr): 752.00
+[2023-10-04 12:59:23,748] Iteration  33, score (curr): 740.00
+[2023-10-04 12:59:28,384] Iteration  34, score (curr): 728.00
+[2023-10-04 13:01:54,142] 2-opt begint met een strafpunten score van: 1208.0
+[2023-10-04 13:01:54,220] Iteration   1, score (curr): 1184.00
+[2023-10-04 13:01:54,425] Iteration   2, score (curr): 1172.00
+[2023-10-04 13:01:54,708] Iteration   3, score (curr): 1160.00
+[2023-10-04 13:01:54,864] Iteration   4, score (curr): 1148.00
+[2023-10-04 13:01:55,284] Iteration   5, score (curr): 1100.00
+[2023-10-04 13:01:56,424] Iteration   6, score (curr): 1088.00
+[2023-10-04 13:01:57,759] Iteration   7, score (curr): 1076.00
+[2023-10-04 13:01:58,266] Iteration   8, score (curr): 1064.00
+[2023-10-04 13:01:59,842] Iteration   9, score (curr): 1052.00
+[2023-10-04 13:01:59,926] Iteration  10, score (curr): 1040.00
+[2023-10-04 13:02:00,490] Iteration  11, score (curr): 1036.00
+[2023-10-04 13:02:00,639] Iteration  12, score (curr): 1024.00
+[2023-10-04 13:02:00,857] Iteration  13, score (curr): 1012.00
+[2023-10-04 13:02:02,663] Iteration  14, score (curr): 996.00
+[2023-10-04 13:02:04,297] Iteration  15, score (curr): 984.00
+[2023-10-04 13:02:05,420] Iteration  16, score (curr): 972.00
+[2023-10-04 13:02:07,303] Iteration  17, score (curr): 960.00
+[2023-10-04 13:02:10,116] Iteration  18, score (curr): 936.00
+[2023-10-04 13:02:12,025] Iteration  19, score (curr): 924.00
+[2023-10-04 13:02:13,885] Iteration  20, score (curr): 912.00
+[2023-10-04 13:02:16,784] Iteration  21, score (curr): 908.00
+[2023-10-04 13:02:17,000] Iteration  22, score (curr): 896.00
+[2023-10-04 13:02:17,490] Iteration  23, score (curr): 884.00
+[2023-10-04 13:02:19,906] Iteration  24, score (curr): 872.00
+[2023-10-04 13:02:20,843] Iteration  25, score (curr): 860.00
+[2023-10-04 13:02:24,395] Iteration  26, score (curr): 840.00
+[2023-10-04 13:02:28,872] Iteration  27, score (curr): 828.00
+[2023-10-04 13:02:29,642] Iteration  28, score (curr): 816.00
+[2023-10-04 13:02:34,741] Iteration  29, score (curr): 788.00
+[2023-10-04 13:02:38,107] Iteration  30, score (curr): 776.00
+[2023-10-04 13:02:44,102] Iteration  31, score (curr): 764.00
+[2023-10-04 13:02:50,102] Iteration  32, score (curr): 752.00
+[2023-10-04 13:02:51,432] Iteration  33, score (curr): 740.00
+[2023-10-04 13:03:21,512] 2-opt begint met een strafpunten score van: 1208.0
+[2023-10-04 13:03:21,580] Iteration   1, score (curr): 1184.00
+[2023-10-04 13:03:21,796] Iteration   2, score (curr): 1172.00
+[2023-10-04 13:03:22,079] Iteration   3, score (curr): 1160.00
+[2023-10-04 13:03:22,237] Iteration   4, score (curr): 1148.00
+[2023-10-04 13:03:22,668] Iteration   5, score (curr): 1100.00
+[2023-10-04 13:03:23,874] Iteration   6, score (curr): 1088.00
+[2023-10-04 13:03:25,234] Iteration   7, score (curr): 1076.00
+[2023-10-04 13:03:25,834] Iteration   8, score (curr): 1064.00
+[2023-10-04 13:03:27,491] Iteration   9, score (curr): 1052.00
+[2023-10-04 13:03:27,576] Iteration  10, score (curr): 1040.00
+[2023-10-04 13:03:28,133] Iteration  11, score (curr): 1036.00
+[2023-10-04 13:03:28,284] Iteration  12, score (curr): 1024.00
+[2023-10-04 13:03:28,509] Iteration  13, score (curr): 1012.00
+[2023-10-04 13:03:30,291] Iteration  14, score (curr): 996.00
+[2023-10-04 13:03:31,980] Iteration  15, score (curr): 984.00
+[2023-10-04 13:03:33,113] Iteration  16, score (curr): 972.00
+[2023-10-04 13:03:35,032] Iteration  17, score (curr): 960.00
+[2023-10-04 13:03:37,788] Iteration  18, score (curr): 936.00
+[2023-10-04 13:03:39,546] Iteration  19, score (curr): 924.00
+[2023-10-04 13:03:41,361] Iteration  20, score (curr): 912.00
+[2023-10-04 13:03:44,218] Iteration  21, score (curr): 908.00
+[2023-10-04 13:03:44,442] Iteration  22, score (curr): 896.00
+[2023-10-04 13:03:44,935] Iteration  23, score (curr): 884.00
+[2023-10-04 13:03:47,282] Iteration  24, score (curr): 872.00
+[2023-10-04 13:03:48,191] Iteration  25, score (curr): 860.00
+[2023-10-04 13:03:51,265] Iteration  26, score (curr): 840.00
+[2023-10-04 13:03:55,355] Iteration  27, score (curr): 828.00
+[2023-10-04 13:03:56,099] Iteration  28, score (curr): 816.00
+[2023-10-04 13:04:00,600] Iteration  29, score (curr): 788.00
+[2023-10-04 13:04:03,946] Iteration  30, score (curr): 776.00
+[2023-10-04 13:04:09,455] Iteration  31, score (curr): 764.00
+[2023-10-04 13:04:14,507] Iteration  32, score (curr): 752.00
+[2023-10-04 13:04:15,838] Iteration  33, score (curr): 740.00
+[2023-10-04 13:04:20,029] Iteration  34, score (curr): 728.00
+[2023-10-04 13:04:25,524] Iteration  35, score (curr): 716.00

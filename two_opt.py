@@ -31,61 +31,59 @@ logging.basicConfig(level=logging.DEBUG,
 logging.getLogger('matplotlib.font_manager').disabled = True
 
 
-def two_opt(planning):
+def two_opt(planning, kolom):
     planning = pd.read_excel(planning)
     strafpunten = score_planning(planning)
     
-    oude_planning = planning
+    oude_planning = planning.copy()
     # planning_strafpunten = score_planning()
-    logger.debug(msg=f"2-opt starts with tour having total distance: {strafpunten}")
+    logger.debug(msg=f"2-opt begint met een strafpunten score van: {strafpunten}")
 
-    Voor = planning['Voor']       # Lijst maken werkt niet, dit moet in functie score_planning
-    Hoofd = planning['Hoofd']
-    Na = planning['Na']
+
     improved = True
     iteration = 0
     while improved:
         improved = False
         i = 1
-        while ((i <= len(Voor)-2) and not(improved)):
+        while ((i <= len(planning)-2) and not(improved)):
             j = i+1
-            while((j <= len(Voor)) and not(improved)): 
+            while((j <= len(planning)) and not(improved)): 
                 if j - i == 1:
                     j += 1
                     continue  # No need to reverse two consecutive edges
 
-                nieuwe_planning = Voor[:]
-                nieuwe_planning.iloc[i:j] = reversed(Voor.iloc[i:j])          # reversed werkt niet voor series, iloc nodig voor series
-                if score_planning(nieuwe_planning) < score_planning(Voor):
-                    Voor = nieuwe_planning
-                    current_distance = score_planning(Voor)
+                nieuwe_planning = planning.copy()
+                nieuwe_planning.loc[i, kolom], nieuwe_planning.loc[j, kolom] = nieuwe_planning.loc[j, kolom], nieuwe_planning.loc[i, kolom]
+                new_score = score_planning(nieuwe_planning)
+                if new_score < score_planning(planning):
+                    planning = nieuwe_planning
                     improved = True
-                    logger.debug(msg=f"Iteration {iteration+1:3n}, distance (curr): {current_distance:.2f}")
+                    logger.debug(msg=f"Iteration {iteration + 1:3n}, score (curr): {new_score:.2f}")
                     iteration += 1
                 j += 1
             i += 1
 
 
 
-    for i in range(1, len(strafpunten)):
-        x1, y1 = strafpunten[oude_planning[i - 1]]
-        x2, y2 = strafpunten[oude_planning[i]]
-        plt.plot([x1, x2], [y1, y2], 'g-',linewidth=1)  
-    x1, y1 = strafpunten[oude_planning[len(strafpunten)-1]]
-    x2, y2 = strafpunten[oude_planning[0]]
-    plt.plot([x1, x2], [y1, y2], 'g-',linewidth=1)  
-    for i in range(1, len(strafpunten)):
-        x1, y1 = strafpunten[planning[i - 1]]
-        x2, y2 = strafpunten[planning[i]]
-        plt.plot([x1, x2], [y1, y2], 'b-')  # 'b-' specifies blue solid line
-    x1, y1 = strafpunten[planning[len(strafpunten)-1]]
-    x2, y2 = strafpunten[planning[0]]
-    plt.plot([x1, x2], [y1, y2], 'b-')  # 'b-' specifies blue solid line
-    plt.title(f'Tours after applying 2-opt')
+    # for i in range(1, len(strafpunten)):
+    #     x1, y1 = strafpunten[oude_planning[i - 1]]
+    #     x2, y2 = strafpunten[oude_planning[i]]
+    #     plt.plot([x1, x2], [y1, y2], 'g-',linewidth=1)  
+    # x1, y1 = strafpunten[oude_planning[len(strafpunten)-1]]
+    # x2, y2 = strafpunten[oude_planning[0]]
+    # plt.plot([x1, x2], [y1, y2], 'g-',linewidth=1)  
+    # for i in range(1, len(strafpunten)):
+    #     x1, y1 = strafpunten[planning[i - 1]]
+    #     x2, y2 = strafpunten[planning[i]]
+    #     plt.plot([x1, x2], [y1, y2], 'b-')  # 'b-' specifies blue solid line
+    # x1, y1 = strafpunten[planning[len(strafpunten)-1]]
+    # x2, y2 = strafpunten[planning[0]]
+    # plt.plot([x1, x2], [y1, y2], 'b-')  # 'b-' specifies blue solid line
+    # plt.title(f'Tours after applying 2-opt')
 
     logger.debug(msg=f"2-opt ends with tour having total distance: {strafpunten}")
 
-    return planning, score_planning() 
+    return planning, score_planning(planning) 
 
 
 
@@ -113,4 +111,9 @@ def two_opt(planning):
 # if __name__ == "__main__":
 #     main()
 
-print(two_opt(planning))
+print(two_opt(planning, 'Voor'))
+
+
+# Voor = planning['Voor']       # Lijst maken werkt niet, dit moet in functie score_planning
+# Hoofd = planning['Hoofd']     # Grote vriend zegt dat dit niet handig is
+# Na = planning['Na']

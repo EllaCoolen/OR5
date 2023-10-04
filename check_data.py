@@ -225,6 +225,6 @@ kolommen_te_controleren = ['Voor', 'Hoofd', 'Na']
 # print(controleer_lege_cellen(planning, kolommen_te_controleren))
 # print(controleer_koppels(df_paren, planning))
 # print(check_niet_koken(df_bewoners, planning))
-print(check_koken(df_bewoners, planning))
+# print(check_koken(df_bewoners, planning))
 # print(check_meeting(planning))
 # print(check_groepsgrootte(df_adressen, planning))
