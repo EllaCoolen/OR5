@@ -1,4 +1,4 @@
-from check_data import *
+from eisen import *
 
 
 

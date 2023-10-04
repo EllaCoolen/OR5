@@ -1,7 +1,4 @@
-from check_data import check_meeting
-
-
-planning = 'Running Dinner eerste oplossing 2023 v2.xlsx'
+from wensen import check_meeting
 
 #functie om de score steeds te bepalen voor elke planning (di e voldoet aan de eisen), gebaseerd op de wensen.
 def score_planning(planning) -> int:
@@ -17,4 +14,3 @@ def score_planning(planning) -> int:
     strafpunten = buren_dubbel * dubbel + buren_trippel * trippel
     return strafpunten
      
-# print(score_planning(planning))
