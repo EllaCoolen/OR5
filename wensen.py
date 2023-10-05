@@ -1,5 +1,6 @@
 from DataFrames import dataframes
 import pandas as pd
+import numpy as np
 
 planning = pd.read_excel('Running Dinner eerste oplossing 2023 v2.xlsx')
 
@@ -122,8 +123,28 @@ def voorkeur_gang(planning):
     Functie kijkt of bewoner een voorkeursgang heeft opgegeven en of desbetreffende persoon bij die gang diens eigen adres heeft staan.
     6 strafpunten
     """
+    df_bewoners, df_adressen, df_paren, df_buren, df_kookte_2021, df_tafelgenoot_2021 = dataframes('Running Dinner dataset 2023 v2.xlsx')    
+    niet_voorkeur_gang = []
+
+    for index, row in df_adressen.iterrows():
+        voorkeur_gang = row['Voorkeur gang']
+        huisadres = row['Huisadres']
     
-    return
+        # Controleer of de voorkeursgang niet NaN is
+        if not pd.isna(voorkeur_gang):
+            # Zoek het bijbehorende adres in de dataframe planning
+            adres_in_planning = planning[planning['Huisadres'] == huisadres]
+        
+            if not adres_in_planning.empty:
+                toegewezen_gang = adres_in_planning['kookt'].values[0]
+            
+                # Vergelijk de voorkeursgang met de toegewezen gang
+                if voorkeur_gang != toegewezen_gang:
+                    niet_voorkeur_gang.append(huisadres)
+                    
+    niet_voorkeur_gang = len(niet_voorkeur_gang)
+    
+    return niet_voorkeur_gang
 
 
 
