@@ -16,6 +16,9 @@ def score_planning(planning) -> int:
     niet_voorkeur_gang = voorkeur_gang(planning)
     voorkeur_gang = 6
     
-    strafpunten = buren_dubbel * dubbel + buren_trippel * trippel + hoofd_dubbel * dubbel_hoofdgerecht + voorkeur_gang * niet_voorkeur_gang
+    buren = buren(planning)
+    buren_meeten = 2
+    
+    strafpunten = buren_dubbel * dubbel + buren_trippel * trippel + hoofd_dubbel * dubbel_hoofdgerecht + voorkeur_gang * niet_voorkeur_gang + buren * buren_meeten
     return strafpunten
      
