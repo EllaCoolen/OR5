@@ -129,7 +129,7 @@ def kennissen(planning, voorgaand_jaar, data_dit_jaar, data_vorig_jaar):
 planning = pd.read_excel('Running Dinner eerste oplossing 2023 v2.xlsx')
 planning_vorig_jaar = pd.read_excel('Running Dinner eerste oplossing 2022.xlsx')
 data_vorig_jaar = 'Running Dinner dataset 2022.xlsx'
-data_dit_jaar = 'Running Dinner dataset 2023 v2.xlsx'
+# data_dit_jaar = 'Running Dinner dataset 2023 v2.xlsx'
 # print(kennissen_voorgaand_jaar(planning_vorig_jaar, data_vorig_jaar))
 # print(kennissen(planning, planning_vorig_jaar, data_dit_jaar, data_vorig_jaar))
 
