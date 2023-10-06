@@ -62,6 +62,6 @@ def two_opt(planning, kolom):
 
 
 
-# print(two_opt(planning, 'Voor'))
+print(two_opt(planning, 'Voor'))
 
 

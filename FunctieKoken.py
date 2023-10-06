@@ -21,12 +21,12 @@ import numpy as np
 
 
 #print(koken('Voor', 'Voor'))
-def kennissen_voorgaand_jaar(df):
+def kennissen_voorgaand_jaar(df, data):
     """
     Functie kijkt of bewoner bij zelfde bewoner zit als voorgaand jaar. (in dit geval eerst alleen 2022)
     4 strafpunten
     """
-    df_bewoners, df_adressen, df_paren, df_buren, df_kookte_2021, df_tafelgenoot_2021 = dataframes('Running Dinner dataset 2022.xlsx')
+    df_bewoners, df_adressen, df_paren, df_buren, df_kookte_2021, df_tafelgenoot_2021 = dataframes(data)
     # Maak dictionaries om de lijsten van bewoners per adres in de kolommen 'Voor', 'Hoofd', en 'Na' op te slaan
     bewoners_per_adres_voor = {}
     bewoners_per_adres_hoofd = {}
@@ -92,15 +92,46 @@ def kennissen_voorgaand_jaar(df):
                 tafelgenoten.remove(bewoner2)
             elif bewoner == bewoner2 and bewoner1 in tafelgenoten:
                 tafelgenoten.remove(bewoner1)
+                
+        bewoners_per_bewoner[bewoner] = tafelgenoten
+        
+    return bewoners_per_bewoner
+            # f'{bewoner} komt de volgende mensen tegen dit jaar: {tafelgenoten}'
+            
+def kennissen(planning, voorgaand_jaar, data_dit_jaar, data_vorig_jaar):
     
-                return f'{bewoner} komt de volgende mensen tegen dit jaar: {tafelgenoten}'
+    voorgaand_jaar_bewoners = voorgaand_jaar['Bewoner'].tolist()
+    bewoners_per_bewoner = kennissen_voorgaand_jaar(planning, data_dit_jaar)
+    bewoners_per_bewoner_2 = kennissen_voorgaand_jaar(voorgaand_jaar, data_vorig_jaar)
+    
+    zelfde_tafelgenoot = 0
+    
+    for bewoner in bewoners_per_bewoner:
+        if bewoner in voorgaand_jaar_bewoners:
+            contacten = bewoners_per_bewoner[bewoner]
+            contacten = list(set(contacten))
+            contacten_2 = bewoners_per_bewoner_2[bewoner]
+            contacten_2 = list(set(contacten_2))
+            alle_contacten = contacten + contacten_2
+            set_alle_contacten = set(alle_contacten)
+            if len(set_alle_contacten) != len(alle_contacten):
+                verschil = len(alle_contacten)-len(set_alle_contacten)
+                zelfde_tafelgenoot += verschil
+            
+    zelfde_tafelgenoot = zelfde_tafelgenoot/2
+    return zelfde_tafelgenoot
+    
+
+            
 
 
 
 planning = pd.read_excel('Running Dinner eerste oplossing 2023 v2.xlsx')
 planning_vorig_jaar = pd.read_excel('Running Dinner eerste oplossing 2022.xlsx')
-data_vorig_jaar = pd.read_excel('Running Dinner dataset 2022.xlsx')
-print(kennissen_voorgaand_jaar(planning_vorig_jaar))
+data_vorig_jaar = 'Running Dinner dataset 2022.xlsx'
+data_dit_jaar = 'Running Dinner dataset 2023 v2.xlsx'
+# print(kennissen_voorgaand_jaar(planning_vorig_jaar, data_vorig_jaar))
+# print(kennissen(planning, planning_vorig_jaar, data_dit_jaar, data_vorig_jaar))
 
 
 

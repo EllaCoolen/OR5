@@ -10,15 +10,22 @@ def score_planning(planning) -> int:
     buren_trippel = 28
     dubbel, trippel = check_meeting(planning)
     
-    hoofd_dubbel = dubbel_hoofd(planning, 'Running Dinner eerste oplossing 2022.xlsx')    # Moet nog veranderen hoe excel word ingelezen
-    dubbel_hoofdgerecht = 8
+    # if hoofd_check:
+    #     hoofd_dubbel = dubbel_hoofd(planning, 'Running Dinner eerste oplossing 2022.xlsx')    # Moet nog veranderen hoe excel word ingelezen
+    #     dubbel_hoofdgerecht = 8
     
     niet_voorkeur_gang = voorkeur_gang(planning)
-    voorkeur_gang = 6
+    voorkeur_gangen = 6
     
-    buren = buren(planning)
+    zelfde_tafelgenoot = kennissen(planning)
+    punten_zelfde_tafelgenoot = 4
+    
+    buur = buren(planning)
     buren_meeten = 2
     
-    strafpunten = buren_dubbel * dubbel + buren_trippel * trippel + hoofd_dubbel * dubbel_hoofdgerecht + voorkeur_gang * niet_voorkeur_gang + buren * buren_meeten
+    zelfde_tafelgenoot_twee_jaar_geleden = ouwe_kennissen(planning)
+    punten_zelfde_tafelgenoot_twee_jaar_geleden = 1
+    
+    strafpunten = buren_dubbel * dubbel + buren_trippel * trippel + voorkeur_gangen * niet_voorkeur_gang + punten_zelfde_tafelgenoot * zelfde_tafelgenoot + buur * buren_meeten + punten_zelfde_tafelgenoot_twee_jaar_geleden * zelfde_tafelgenoot_twee_jaar_geleden
     return strafpunten
      

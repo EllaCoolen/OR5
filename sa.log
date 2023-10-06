@@ -186,3 +186,10 @@
 [2023-10-04 16:15:00,904] Iteration  48, score (curr): 520.00
 [2023-10-04 16:15:28,123] Iteration  49, score (curr): 508.00
 [2023-10-04 16:15:56,426] Iteration  50, score (curr): 496.00
+[2023-10-06 14:56:27,906] 2-opt begint met een strafpunten score van: 1562.0
+[2023-10-06 14:56:49,936] 2-opt begint met een strafpunten score van: 1562.0
+[2023-10-06 15:23:14,604] 2-opt begint met een strafpunten score van: 1522.0
+[2023-10-06 15:23:18,588] Iteration   1, score (curr): 1498.00
+[2023-10-06 15:23:27,150] Iteration   2, score (curr): 1494.00
+[2023-10-06 15:23:45,026] Iteration   3, score (curr): 1482.00
+[2023-10-06 15:23:52,854] Iteration   4, score (curr): 1458.00

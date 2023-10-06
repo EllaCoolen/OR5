@@ -109,6 +109,7 @@ def check_niet_koken(df_bewoners, planning):
             return 0            
 
 def check_groepsgrootte(df_adressen, planning):
+    
     for index, rij in df_adressen.iterrows():
         adres = rij['Huisadres']
         if planning.loc[planning['Huisadres'] == adres, 'aantal'].empty:
