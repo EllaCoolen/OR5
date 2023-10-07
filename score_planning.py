@@ -14,8 +14,8 @@ def score_planning(planning) -> int:
     #     hoofd_dubbel = dubbel_hoofd(planning, 'Running Dinner eerste oplossing 2022.xlsx')    # Moet nog veranderen hoe excel word ingelezen
     #     dubbel_hoofdgerecht = 8
     
-    niet_voorkeur_gang = voorkeur_gang(planning)
-    voorkeur_gangen = 6
+    # niet_voorkeur_gang = voorkeur_gang(planning)
+    # voorkeur_gangen = 6
     
     zelfde_tafelgenoot = kennissen(planning)
     punten_zelfde_tafelgenoot = 4
@@ -26,6 +26,6 @@ def score_planning(planning) -> int:
     zelfde_tafelgenoot_twee_jaar_geleden = ouwe_kennissen(planning)
     punten_zelfde_tafelgenoot_twee_jaar_geleden = 1
     
-    strafpunten = buren_dubbel * dubbel + buren_trippel * trippel + voorkeur_gangen * niet_voorkeur_gang + punten_zelfde_tafelgenoot * zelfde_tafelgenoot + buur * buren_meeten + punten_zelfde_tafelgenoot_twee_jaar_geleden * zelfde_tafelgenoot_twee_jaar_geleden
+    strafpunten = buren_dubbel * dubbel + buren_trippel * trippel + punten_zelfde_tafelgenoot * zelfde_tafelgenoot + buur * buren_meeten + punten_zelfde_tafelgenoot_twee_jaar_geleden * zelfde_tafelgenoot_twee_jaar_geleden
     return strafpunten
      

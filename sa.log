@@ -193,3 +193,23 @@
 [2023-10-06 15:23:27,150] Iteration   2, score (curr): 1494.00
 [2023-10-06 15:23:45,026] Iteration   3, score (curr): 1482.00
 [2023-10-06 15:23:52,854] Iteration   4, score (curr): 1458.00
+[2023-10-07 10:46:32,469] 2-opt begint met een strafpunten score van: 1522.0
+[2023-10-07 10:46:42,947] Iteration   1, score (curr): 1513.00
+[2023-10-07 10:54:18,477] 2-opt begint met een strafpunten score van: 1522.0
+[2023-10-07 10:54:30,194] Iteration   1, score (curr): 1513.00
+[2023-10-07 11:13:17,733] 2-opt begint met een strafpunten score van: 1522.0
+[2023-10-07 11:13:28,604] Iteration   1, score (curr): 1513.00
+[2023-10-07 11:17:24,109] 2-opt begint met een strafpunten score van: 1522.0
+[2023-10-07 11:17:30,013] Iteration   1, score (curr): 1513.00
+[2023-10-07 11:50:55,382] 2-opt ends with tour having total distance: 1513.0
+[2023-10-07 11:54:58,566] 2-opt begint met een strafpunten score van: 1522.0
+[2023-10-07 11:55:02,491] Iteration   1, score (curr): 1513.00
+[2023-10-07 12:01:50,004] 2-opt begint met een strafpunten score van: 1522.0
+[2023-10-07 12:01:54,036] Iteration   1, score (curr): 1513.00
+[2023-10-07 12:07:51,865] 2-opt begint met een strafpunten score van: 1522.0
+[2023-10-07 12:07:53,174] Iteration   1, score (curr): 1498.00
+[2023-10-07 12:07:54,481] Iteration   2, score (curr): 1494.00
+[2023-10-07 12:07:57,105] Iteration   3, score (curr): 1482.00
+[2023-10-07 12:07:59,755] Iteration   4, score (curr): 1450.00
+[2023-10-07 12:08:10,257] Iteration   5, score (curr): 1449.00
+[2023-10-07 13:34:29,603] 2-opt ends with tour having total distance: 1449.0

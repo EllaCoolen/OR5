@@ -10,15 +10,15 @@ import sys
 df_bewoners, df_adressen, df_paren, df_buren, df_kookte_2021, df_tafelgenoot_2021 = dataframes('Running Dinner dataset 2023 v2.xlsx')
 planning = 'Running Dinner eerste oplossing 2023 v2.xlsx'
 
-# Constants
-MYVERYBIGNUMBER = 424242424242 
-MYVERYSMALLNUMBER = 1e-5
-NUMBEROFCITIES = 100
-INITIALTEMPERATURE = 2000.0    
-COOLINGRATE = 0.9995
+# # Constants
+# MYVERYBIGNUMBER = 424242424242 
+# MYVERYSMALLNUMBER = 1e-5
+# NUMBEROFCITIES = 100
+# INITIALTEMPERATURE = 2000.0    
+# COOLINGRATE = 0.9995
 
 # Initialize random number generator 
-random.seed(42)
+# random.seed(42)
 
 logger = logging.getLogger(name='sa-logger')
 logging.basicConfig(level=logging.DEBUG,
@@ -26,7 +26,7 @@ logging.basicConfig(level=logging.DEBUG,
                     handlers=[logging.FileHandler("sa.log"),logging.StreamHandler(stream=sys.stdout)])
 logging.getLogger('matplotlib.font_manager').disabled = True
 
-def two_opt(planning, kolom):
+def two_opt(planning, kolom, output_filename):
     planning = pd.read_excel(planning)
     strafpunten = score_planning(planning)
     
@@ -57,11 +57,16 @@ def two_opt(planning, kolom):
             i += 1
 
     logger.debug(msg=f"2-opt ends with tour having total distance: {strafpunten}")
-
+    planning.to_excel(output_filename, index=False)
     return planning, score_planning(planning) 
 
+output_filename = 'Uiteindelijke_Planning.xlsx'
+planning, score = two_opt(planning, ['Voor', 'Hoofd', 'Na'], output_filename)
+
+print(f"Uiteindelijke score: {score}")
+print(f"Uiteindelijke planning is opgeslagen in '{output_filename}'")
 
 
-print(two_opt(planning, 'Voor'))
+# print(two_opt(planning, ['Voor', 'Hoofd', 'Na']))
 
 
