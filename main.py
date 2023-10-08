@@ -34,7 +34,7 @@ def two_opt(planning, kolommen, output_filename, df_paren):
                                 planning = nieuwe_planning
                                 strafpunten = new_score
                                 improved = True
-                                logger.debug(msg=f"Iteration {iteration + 1:3n}, score (curr): {new_score:.2f}")
+                                logger.debug(msg=f"Verbetering {verbetering + 1:3n}, score (curr): {new_score:.2f}")
                                 verbetering += 1
                                 print(i, j)
                             hist_best_obj_vals.append(strafpunten)
