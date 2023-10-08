@@ -32,7 +32,7 @@ def two_opt(planning, kolom, output_filename, df_paren):
                             print(i, j)
 
     logger.debug(msg=f"2-opt ends with tour having total distance: {strafpunten}")
-    planning.to_excel(output_filename, index=False)
+    planning= planning.to_excel(output_filename, index=False)
     return planning, strafpunten 
 
 if __name__ == "__main__":
