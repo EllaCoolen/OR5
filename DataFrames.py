@@ -32,8 +32,8 @@ def dataframes(a):
 #Running Dinner eerste oplossing 2022.xlsx'
 
 def eerste_oplossing(b):
-    df_planning = pd.read_excel(b, usecols = ['Bewoner', 'Huisadres', 'Voor', 'Hoofd', 'Na', 'kookt', 'aantal'])
-    return df_planning
+    planning = pd.read_excel(b, usecols = ['Bewoner', 'Huisadres', 'Voor', 'Hoofd', 'Na', 'kookt', 'aantal'])
+    return planning
 #print(dataframes('Running Dinner dataset 2022.xlsx', 'Running Dinner eerste oplossing 2022.xlsx'))
 
 ############# VERZAMELINGEN EN INDICES ####################

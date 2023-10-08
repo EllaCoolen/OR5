@@ -26,9 +26,9 @@ logging.basicConfig(level=logging.DEBUG,
                     handlers=[logging.FileHandler("sa.log"),logging.StreamHandler(stream=sys.stdout)])
 logging.getLogger('matplotlib.font_manager').disabled = True
 
-def two_opt(planning, kolom, output_filename):
+def two_opt(planning, kolom, output_filename, dubbel_trippel=True, gang=True, tafelgenoot=True, buurhuis=True, twee_tafelgenoot=True):
     planning = pd.read_excel(planning)
-    strafpunten = score_planning(planning)
+    strafpunten = score_planning(planning, dubbel_trippel, gang, tafelgenoot, buurhuis, twee_tafelgenoot)
     
     # planning_strafpunten = score_planning()
     logger.debug(msg=f"2-opt begint met een strafpunten score van: {strafpunten}")
@@ -44,7 +44,9 @@ def two_opt(planning, kolom, output_filename):
                 if j - i == 1:
                     j += 1
                     continue  # No need to reverse two consecutive edges
-                if alle_eisen(planning) == 0:
+                errors = alle_eisen(planning)
+                if errors == 0:
+                # if alle_eisen(planning) == 0:
                     nieuwe_planning = planning.copy()
                     nieuwe_planning.loc[i, kolom], nieuwe_planning.loc[j, kolom] = nieuwe_planning.loc[j, kolom], nieuwe_planning.loc[i, kolom]
                     new_score = score_planning(nieuwe_planning)
@@ -61,7 +63,7 @@ def two_opt(planning, kolom, output_filename):
     return planning, score_planning(planning) 
 
 output_filename = 'Uiteindelijke_Planning.xlsx'
-planning, score = two_opt(planning, ['Voor', 'Hoofd', 'Na'], output_filename)
+planning, score = two_opt(planning, ['Voor', 'Hoofd', 'Na'], output_filename, dubbel_trippel=True, gang=False, tafelgenoot=True, buurhuis=True, twee_tafelgenoot=True)
 
 print(f"Uiteindelijke score: {score}")
 print(f"Uiteindelijke planning is opgeslagen in '{output_filename}'")
