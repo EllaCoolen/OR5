@@ -1,7 +1,7 @@
 from wensen import *
 
 #functie om de score steeds te bepalen voor elke planning (di e voldoet aan de eisen), gebaseerd op de wensen.
-def score_planning(planning, dubbel_trippel=True, gang=True, tafelgenoot=True, buurhuis=True, twee_tafelgenoot=True) -> int:
+def score_planning(planning, dubbel_trippel=True, buurhuis=True) -> int:
     """ voor elke feasible solution bepalen we een score voor die planning. we zoeken de planning met de laagste score
     arguments: planning? (2-opt heuristic is het verwisselen van twee dingen)
     output: score int (we moeten verschil tussen de scores tussen het verschil meten, maar hoeft niet)
@@ -31,21 +31,21 @@ def score_planning(planning, dubbel_trippel=True, gang=True, tafelgenoot=True, b
     #     punten_dubbel_hoofdgerecht = 8
     #     hoofd_dubbel = dubbel_hoofd(planning, 'Running Dinner eerste oplossing 2022.xlsx')    # Moet nog veranderen hoe excel word ingelezen
     
-    if gang:
-        niet_voorkeur_gang = voorkeur_gang(planning)
-        punten_voorkeur_gangen = 6
+    # if gang:
+    #     niet_voorkeur_gang = voorkeur_gang(planning)
+    #     punten_voorkeur_gangen = 6
     
-    if tafelgenoot:
-        zelfde_tafelgenoot = kennissen(planning)
-        punten_zelfde_tafelgenoot = 4
+    # if tafelgenoot:
+    #     zelfde_tafelgenoot = kennissen(planning)
+    #     punten_zelfde_tafelgenoot = 4
     
     if buurhuis:
         buur = buren(planning)
         punten_buren_meeten = 2
     
-    if twee_tafelgenoot:
-        zelfde_tafelgenoot_twee_jaar_geleden = ouwe_kennissen(planning)
-        punten_zelfde_tafelgenoot_twee_jaar_geleden = 1
+    # if twee_tafelgenoot:
+    #     zelfde_tafelgenoot_twee_jaar_geleden = ouwe_kennissen(planning)
+    #     punten_zelfde_tafelgenoot_twee_jaar_geleden = 1
     
     strafpunten = punten_buren_dubbel * dubbel + punten_buren_trippel * trippel + punten_dubbel_hoofdgerecht * hoofd_dubbel + punten_voorkeur_gangen * niet_voorkeur_gang + punten_zelfde_tafelgenoot * zelfde_tafelgenoot + buur * punten_buren_meeten + punten_zelfde_tafelgenoot_twee_jaar_geleden * zelfde_tafelgenoot_twee_jaar_geleden
     return strafpunten
