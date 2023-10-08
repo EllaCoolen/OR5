@@ -5,9 +5,9 @@ from score_planning import score_planning
 from DataFrames import dataframes
 from alle_checks import alle_eisen
 
-def two_opt(planning, kolommen, output_filename):
+def two_opt(planning, kolom, output_filename, df_paren):
     planning = pd.read_excel(planning)
-    strafpunten = score_planning(planning)
+    strafpunten = score_planning(planning, df_buren)
     
     logger.debug(msg=f"2-opt begint met een strafpunten score van: {strafpunten}")
 
@@ -16,13 +16,13 @@ def two_opt(planning, kolommen, output_filename):
     planning_len = len(planning)
     while improved:
         improved = False
-        for kolom in kolommen:
-            for i in range(1, planning_len - 1):
-                for j in range(i + 2, planning_len):
-                    if alle_eisen(planning) == 0:
-                        nieuwe_planning = planning.copy()
-                        nieuwe_planning.loc[i, kolom], nieuwe_planning.loc[j, kolom] = nieuwe_planning.loc[j, kolom], nieuwe_planning.loc[i, kolom]
-                        new_score = score_planning(nieuwe_planning)
+        for i in range(1, planning_len - 1):
+            for j in range(i + 2, planning_len):
+                if alle_eisen(planning, df_paren) == 0:
+                    nieuwe_planning = planning.copy()
+                    nieuwe_planning.loc[i, kolom], nieuwe_planning.loc[j, kolom] = nieuwe_planning.loc[j, kolom], nieuwe_planning.loc[i, kolom]
+                    new_score = score_planning(nieuwe_planning, df_buren)
+                    if alle_eisen(nieuwe_planning, df_paren) ==0:
                         if new_score < strafpunten:
                             planning = nieuwe_planning
                             strafpunten = new_score
@@ -45,10 +45,12 @@ if __name__ == "__main__":
                         handlers=[logging.FileHandler("sa.log"), logging.StreamHandler(stream=sys.stdout)])
     logging.getLogger('matplotlib.font_manager').disabled = True
 
-    kolommen = ['Voor', 'Hoofd', 'Na']
-    planning, score = two_opt(planning, kolommen, output_filename)
+    #kolommen = ['Voor', 'Hoofd', 'Na']
+    planning1, score1 = two_opt(planning, 'Voor', output_filename, df_paren)
+    planning2, score2 = two_opt(planning1, 'Hoofd', output_filename, df_paren)
+    planning3, score3= two_opt(planning2, 'Na', output_filename, df_paren)
 
-    print(f"Uiteindelijke score: {score}")
+    print(f"Uiteindelijke score: {score2}")
     print(f"Uiteindelijke planning is opgeslagen in '{output_filename}'")
 
 

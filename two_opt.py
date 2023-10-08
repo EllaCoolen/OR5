@@ -28,7 +28,7 @@ logging.getLogger('matplotlib.font_manager').disabled = True
 
 def two_opt(planning, kolom, output_filename, dubbel_trippel=True, buurhuis=True):
     planning = pd.read_excel(planning)
-    strafpunten = score_planning(planning, dubbel_trippel, buurhuis)
+    strafpunten = score_planning(planning, df_buren, dubbel_trippel, buurhuis)
     
     # planning_strafpunten = score_planning()
     logger.debug(msg=f"2-opt begint met een strafpunten score van: {strafpunten}")

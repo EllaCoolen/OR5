@@ -1,7 +1,7 @@
 from wensen import *
 
 #functie om de score steeds te bepalen voor elke planning (di e voldoet aan de eisen), gebaseerd op de wensen.
-def score_planning(planning, dubbel_trippel=True, buurhuis=True) -> int:
+def score_planning(planning, df_buren, dubbel_trippel=True, buurhuis=True) -> int:
     """ voor elke feasible solution bepalen we een score voor die planning. we zoeken de planning met de laagste score
     arguments: planning? (2-opt heuristic is het verwisselen van twee dingen)
     output: score int (we moeten verschil tussen de scores tussen het verschil meten, maar hoeft niet)
@@ -40,7 +40,7 @@ def score_planning(planning, dubbel_trippel=True, buurhuis=True) -> int:
     #     punten_zelfde_tafelgenoot = 4
     
     if buurhuis:
-        buur = buren(planning)
+        buur = buren(planning, df_buren)
         punten_buren_meeten = 2
     
     # if twee_tafelgenoot:

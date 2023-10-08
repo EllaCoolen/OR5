@@ -255,13 +255,11 @@ def check_meeting(planning):
             
 
 
-def buren(planning):
+def buren(planning, df_buren):
     """
     Functie kijkt of bewoner een buur heeft als tafelgenoot.
     2 strafpunten
     """
-    
-    df_buren = pd.read_excel('Running Dinner dataset 2023 v2.xlsx', skiprows=[0], sheet_name = 'Buren')
     
     buren = []
     

@@ -20,8 +20,7 @@ from eisen import *
 #                 return 0
         
         
-def alle_eisen(planning):
-    df_paren = pd.read_excel('Running Dinner dataset 2023 v2.xlsx', skiprows=[0], sheet_name = 'Paar blijft bij elkaar')
+def alle_eisen(planning, df_paren):
     errors = 0
 
     # Voer alle eisencontroles uit zonder de lussen te verlaten
